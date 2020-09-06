@@ -38,6 +38,7 @@ defmodule PlaymaMeSignaling.MixProject do
       {:absinthe_plug, "~> 1.4.0"},
       {:cors_plug, "~> 2.0"},
       {:elixir_uuid, "~> 1.2"},
+      {:hackney, "~> 1.8"},
       {:phoenix, "~> 1.4.12"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
@@ -46,7 +47,8 @@ defmodule PlaymaMeSignaling.MixProject do
       {:gettext, "~> 0.11"},
       {:guardian, "~> 1.1"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:sentry, "8.0.0"}
     ]
   end
 

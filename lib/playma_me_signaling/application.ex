@@ -14,7 +14,9 @@ defmodule PlaymaMeSignaling.Application do
       # {PlaymaMeSignaling.Worker, arg},
       %{
         id: Absinthe.Subscription,
-        start: {Absinthe.Subscription.Supervisor, :start_link, [PlaymaMeSignalingWeb.Endpoint]},
+        start:
+          {Absinthe.Subscription.Supervisor, :start_link,
+           [PlaymaMeSignalingWeb.Endpoint]},
         type: :supervisor
       },
       %{

@@ -51,6 +51,13 @@ defmodule PlaymaMeSignaling.Channels do
     end
   end
 
+  def touch(name) do
+    with {:ok, pid} <- find(name),
+         channel <- GenServer.call(pid, :touch) do
+      {:ok, channel}
+    end
+  end
+
   def destroy(name) do
     DynamicSupervisor.terminate_child(__MODULE__, name)
   end

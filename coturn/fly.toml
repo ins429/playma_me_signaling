@@ -1,0 +1,62 @@
+app = "playma-me-coturn"
+
+
+[[services]]
+  internal_port = 3478
+  protocol = "tcp"
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.ports]]
+    port = 10000
+
+  [[services.tcp_checks]]
+    interval = 10000
+    timeout = 2000
+
+[[services]]
+  internal_port = 3479
+  protocol = "tcp"
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.ports]]
+    port = 10001
+
+  [[services.tcp_checks]]
+    interval = 10000
+    timeout = 2000
+#
+# [[services]]
+#   internal_port = 5350
+#   protocol = "tcp"
+#
+#   [services.concurrency]
+#     hard_limit = 25
+#     soft_limit = 20
+#
+#   [[services.ports]]
+#     port = 10002
+#
+#   [[services.tcp_checks]]
+#     interval = 10000
+#     timeout = 2000
+#
+# [[services]]
+#   internal_port = 5349
+#   protocol = "tcp"
+#
+#   [services.concurrency]
+#     hard_limit = 25
+#     soft_limit = 20
+#
+#   [[services.ports]]
+#     port = 10003
+#
+#   [[services.tcp_checks]]
+#     interval = 10000
+#     timeout = 2000

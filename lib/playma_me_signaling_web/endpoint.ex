@@ -1,6 +1,7 @@
 defmodule PlaymaMeSignalingWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :playma_me_signaling
   use Absinthe.Phoenix.Endpoint
+  use Sentry.PlugCapture
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -43,5 +44,6 @@ defmodule PlaymaMeSignalingWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug CORSPlug
+  plug Sentry.PlugContext
   plug PlaymaMeSignalingWeb.Router
 end

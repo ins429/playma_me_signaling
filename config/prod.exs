@@ -15,17 +15,32 @@ config :playma_me_signaling, PlaymaMeSignalingWeb.Endpoint,
     "ftobV2AwWfKrONdM7wZXGvnTeNDOukXbmOeDfIzvvgcm4vObbBC90CeSMkrgN9EM",
   render_errors: [view: PlaymaMeSignalingWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: PlaymaMeSignalingWeb.PubSub, adapter: Phoenix.PubSub.PG2],
-  check_origin: false
+  check_origin: ["//playmame.netlify.app", "//playma.me"]
+
+config :sentry,
+  dsn:
+    "https://bb95fff9208c4816866fe62bceb7633c@o291499.ingest.sentry.io/5415987",
+  environment_name: :prod,
+  enable_source_code_context: true,
+  root_source_code_path: File.cwd!(),
+  tags: %{
+    env: "production"
+  },
+  included_environments: [:prod]
 
 config :cors_plug,
   origin: [
-    "https://playma-me.netlify.app"
+    "https://playmame.netlify.app",
+    "https://playma.me"
   ],
   max_age: 86400,
   methods: ["GET", "POST"]
 
 # Do not print debug messages in production
 config :logger, :console, format: "[$level] $message\n"
+
+config :logger,
+  backends: [:console, Sentry.LoggerBackend]
 
 # ## SSL Support
 #
