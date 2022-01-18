@@ -1,22 +1,10 @@
-FROM erlang:22
+FROM elixir:1.13.0
 
-WORKDIR /playma_me_signaling
+RUN apt-get -y update && \
+    apt-get install -y nginx
+
+WORKDIR /playmame_signaling
 COPY . .
-
-# elixir expects utf8.
-ENV ELIXIR_VERSION="v1.10.2" \
-	LANG=C.UTF-8
-
-RUN set -xe \
-	&& ELIXIR_DOWNLOAD_URL="https://github.com/elixir-lang/elixir/archive/${ELIXIR_VERSION}.tar.gz" \
-	&& ELIXIR_DOWNLOAD_SHA256="5adffcf4389aa82fcfbc84324ebbfa095fc657a0e15b2b055fc05184f96b2d50" \
-	&& curl -fSL -o elixir-src.tar.gz $ELIXIR_DOWNLOAD_URL \
-	&& echo "$ELIXIR_DOWNLOAD_SHA256  elixir-src.tar.gz" | sha256sum -c - \
-	&& mkdir -p /usr/local/src/elixir \
-	&& tar -xzC /usr/local/src/elixir --strip-components=1 -f elixir-src.tar.gz \
-	&& rm elixir-src.tar.gz \
-	&& cd /usr/local/src/elixir \
-	&& make install clean
 
 RUN mix local.hex --force && \
     mix local.rebar --force && \
@@ -27,8 +15,15 @@ RUN mix deps.get && \
     mix phx.digest && \
     MIX_ENV=prod mix release
 
-EXPOSE 4000
+EXPOSE 8080:443
+EXPOSE 8081:80
 
 ENV MIX_ENV=prod
 
-CMD ["./_build/prod/rel/playma_me_signaling/bin/playma_me_signaling", "start"]
+WORKDIR /playmame_signaling
+
+RUN mkdir -p /playmame_signaling/nginx && \
+    touch /playmame_signaling/nginx/access.log && \
+    touch /playmame_signaling/nginx/error.log;
+
+CMD ["./docker/start.sh"]
