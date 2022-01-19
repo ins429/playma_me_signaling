@@ -10,23 +10,12 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :playma_me_signaling, PlaymaMeSignalingWeb.Endpoint,
-  url: [
-    host: "localhost",
-    port: 4321
-  ],
-  https: [
-    port: 4321,
-    keyfile: "priv/ssl/ssl.key",
-    certfile: "priv/ssl/ssl.csr",
-    otp_app: :playma_me_signaling
-  ],
-  server: true,
-  root: ".",
+  url: [host: "localhost", port: 4000],
   secret_key_base:
     "ftobV2AwWfKrONdM7wZXGvnTeNDOukXbmOeDfIzvvgcm4vObbBC90CeSMkrgN9EM",
   render_errors: [view: PlaymaMeSignalingWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: PlaymaMeSignalingWeb.PubSub, adapter: Phoenix.PubSub.PG2],
-  check_origin: ["//playmame.netlify.app", "//playma.me", "//localhost:4321"]
+  check_origin: ["//playmame.netlify.app", "//playma.me"]
 
 config :sentry,
   dsn:
